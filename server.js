@@ -1,6 +1,6 @@
 const express = require('express');
 const hbs = require('hbs');
-const port = process.env.PORT || 3000
+const port = process.env.PORT  || 3000
 const fs = require('fs');
 
 var app = express();
@@ -21,9 +21,11 @@ app.use((req, res, next) => {
 	next();
 });
 
-// app.use((req, res, next) => {
+// app.use((req, res, next) =>{
 // 	res.render('maintenance.hbs')
 // });
+
+
 
 hbs.registerHelper('getCurrentYear', () => {
 	return new Date().getFullYear()
@@ -48,12 +50,20 @@ app.get('/about', (req, res) => {
 	});
 });
 
+app.get('/project', (req, res) => {
+	res.render('project.hbs', {
+		pageTitle: 'Project Page',
+		welcomeMessage: 'this is my project page',
+		currentYear: new Date().getFullYear()
+	});
+});
+
 app.get('/Err', (req, res) => {
 	res.send({
 		errorMessage: 'Unable to handle request'
 	});
 });
 
-app.listen(port,() => {
-	console.log(('server is starting on port: ' + port));
+app.listen(port, () => {
+	console.log(('server is starting on port: ' + port))
 });
